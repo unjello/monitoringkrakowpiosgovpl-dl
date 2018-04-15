@@ -1,5 +1,5 @@
 const downloadReadings = require('./index')
 
-downloadReadings(r => {
-  console.log(`${r.station.name}, ${r.param.label}, ${r.reading[1]}`)
+downloadReadings((err, data) => {
+  console.log(`${data.station.name}, ${data.param.label}, ${data.reading[1]}`)
 })

@@ -1,13 +1,12 @@
 const fetch = require('node-fetch')
 const format = require('date-fns/format')
 
-
 const krakowPiosConfigurationURL = 'http://monitoring.krakow.pios.gov.pl/dane-pomiarowe/wczytaj-konfiguracje'
 const krakowPiosDataURL = 'http://monitoring.krakow.pios.gov.pl/dane-pomiarowe/pobierz'
 const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0'
 
 const stationsOfInterest = [ 6, 7, 16, 149, 152, 153, 161, 163 ]
-const paramsOfInterest = [ "pm10", "pm2.5" ]
+const paramsOfInterest = [ 'pm10', 'pm2.5' ]
 
 const headers = {
   'User-Agent': userAgent,
@@ -51,21 +50,20 @@ module.exports = async (callback, options) => {
         return map
       }, {})
 
-    Object.values(stations).slice(0,1).forEach(async s => {
-        const filter = channels[s.id].map(c => c.channel_id).join(',')
-        const response = await downloadUrl(krakowPiosDataURL, buildDataQuery(s.id, opts.date, filter))
-        const readings = await response.json()
-        if (!configuration.success) {
-          throw new Error('API2 call failed')
-        }
-        readings.data.series
-          .forEach(param => {
-            param.data.forEach(reading => {
-                callback({station: s, param, reading})
-            })
+    Object.values(stations).slice(0, 1).forEach(async s => {
+      const filter = channels[s.id].map(c => c.channel_id).join(',')
+      const response = await downloadUrl(krakowPiosDataURL, buildDataQuery(s.id, opts.date, filter))
+      const readings = await response.json()
+      if (!configuration.success) {
+        throw new Error('API2 call failed')
+      }
+      readings.data.series
+        .forEach(param => {
+          param.data.forEach(reading => {
+            callback(null, {station: s, param, reading})
           })
-
-      })
+        })
+    })
   } catch (e) {
     console.error(e)
   }
