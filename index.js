@@ -21,7 +21,12 @@ const headers = {
 const buildDataQuery = (station, date, channels) => `query={"measType":"Auto","viewType":"Station","dateRange":"Day","date":"${format(date, 'DD.MM.YYYY')}","viewTypeEntityId":"${station}","channels":[${channels}]}`
 const downloadUrl = async (url, body) => fetch(url, { method: 'POST', body, headers })
 
-module.exports = async (callback) => {
+const defaultOptions = {
+  date: new Date()
+}
+
+module.exports = async (callback, options) => {
+  const opts = Object.assign({}, options, defaultOptions)
   try {
     const response = await downloadUrl(krakowPiosConfigurationURL, 'measType=Auto')
     const configuration = await response.json()
@@ -48,7 +53,7 @@ module.exports = async (callback) => {
 
     Object.values(stations).slice(0,1).forEach(async s => {
         const filter = channels[s.id].map(c => c.channel_id).join(',')
-        const response = await downloadUrl(krakowPiosDataURL, buildDataQuery(s.id, new Date(), filter))
+        const response = await downloadUrl(krakowPiosDataURL, buildDataQuery(s.id, opts.date, filter))
         const readings = await response.json()
         if (!configuration.success) {
           throw new Error('API2 call failed')
