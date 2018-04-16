@@ -31,7 +31,7 @@ module.exports = async (callback, options) => {
     const configuration = await response.json()
 
     if (!configuration.success) {
-      throw new Error('API call failed')
+      throw new Error(`Couldn't get configuration. API call response indicates failure.`)
     }
 
     const stations = configuration.config.stations
@@ -55,7 +55,7 @@ module.exports = async (callback, options) => {
       const response = await downloadUrl(krakowPiosDataURL, buildDataQuery(s.id, opts.date, filter))
       const readings = await response.json()
       if (!configuration.success) {
-        throw new Error('API2 call failed')
+        throw new Error(`Couldn't get monitoring data for ${s.name} on ${format(opts.date, "YYYY-MM-DD")}. API call response indicates failure.`)
       }
       readings.data.series
         .forEach(param => {
