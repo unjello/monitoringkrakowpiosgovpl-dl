@@ -1,15 +1,22 @@
 {
-  "name": "krakowpiosgovpl-dl",
-  "version": "1.0.0",
+  "name": "monitoringkrakowpiosgovpl-dl",
+  "version": "0.1.0",
   "description": "",
   "bin": "bin/index.js",
   "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/unjello/monitoringkrakowpiosgovpl-dl.git"
+  },
+  "bugs": {
+    "url": "https://github.com/unjello/monitoringkrakowpiosgovpl-dl/issues"
+  },
   "scripts": {
     "test": "standard",
     "fix": "standard --fix"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Andrzej Lichnerowicz <andrzej@lichnerowicz.pl>",
+  "license": "Unlicense",
   "devDependencies": {
     "jest": "^22.4.3",
     "standard": "^11.0.1"
