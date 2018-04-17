@@ -1,4 +1,4 @@
-const downloadReadings = require('./index')
+const downloadReadings = require('../lib')
 
 downloadReadings((err, data) => {
   if (!err) {
