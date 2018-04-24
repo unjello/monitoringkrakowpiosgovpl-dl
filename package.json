@@ -15,7 +15,7 @@
     "lint": "standard | snazzy",
     "lint-ci": "standard",
     "lint-fix": "standard --fix",
-    "test": "jest --env=node"
+    "test": "jest --env=node --coverage"
   },
   "author": "Andrzej Lichnerowicz <andrzej@lichnerowicz.pl>",
   "license": "Unlicense",
