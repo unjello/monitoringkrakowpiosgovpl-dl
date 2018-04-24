@@ -12,13 +12,15 @@
     "url": "https://github.com/unjello/monitoringkrakowpiosgovpl-dl/issues"
   },
   "scripts": {
-    "test": "standard",
-    "fix": "standard --fix"
+    "lint": "standard | snazzy",
+    "lint-ci": "standard",
+    "lint-fix": "standard --fix"
   },
   "author": "Andrzej Lichnerowicz <andrzej@lichnerowicz.pl>",
   "license": "Unlicense",
   "devDependencies": {
     "jest": "^22.4.3",
+    "snazzy": "^7.1.1",
     "standard": "^11.0.1"
   },
   "dependencies": {
