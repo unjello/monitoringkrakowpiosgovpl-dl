@@ -17,6 +17,11 @@
     "lint-fix": "standard --fix",
     "test": "jest --env=node --coverage"
   },
+  "standard": {
+    "env": [
+      "jest"
+    ]
+  },
   "author": "Andrzej Lichnerowicz <andrzej@lichnerowicz.pl>",
   "license": "Unlicense",
   "devDependencies": {
