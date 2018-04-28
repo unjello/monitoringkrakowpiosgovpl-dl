@@ -31,8 +31,9 @@
   },
   "dependencies": {
     "args": "^4.0.0",
-    "date-fns": "^1.29.0",
     "debug": "^3.1.0",
+    "moment": "^2.22.1",
+    "moment-timezone": "^0.5.16",
     "node-fetch": "^2.1.2"
   }
 }

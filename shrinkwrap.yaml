@@ -1,7 +1,8 @@
 dependencies:
   args: 4.0.0
-  date-fns: 1.29.0
   debug: 3.1.0
+  moment: 2.22.1
+  moment-timezone: 0.5.16
   node-fetch: 2.1.2
 devDependencies:
   jest: 22.4.3
@@ -810,10 +811,6 @@ packages:
     dev: true
     resolution:
       integrity: sha512-ai40PPQR0Fn1lD2PPie79CibnlMN2AYiDhwFX/rZHVsxbs5kNJSjegqXIprhouGXlRdEnfybva7kqRGnB6mypA==
-  /date-fns/1.29.0:
-    dev: false
-    resolution:
-      integrity: sha512-lbTXWZ6M20cWH8N9S6afb0SBm6tMk+uUg6z3MqHPKE9atmsY3kJkTm8vKe93izJ2B2+q5MV990sM2CHgtAZaOw==
   /debug-log/1.0.1:
     dev: true
     engines:
@@ -2863,6 +2860,16 @@ packages:
     dev: true
     resolution:
       integrity: sha1-MAV0OOrGz3+MR2fzhkjWaX11yQM=
+  /moment-timezone/0.5.16:
+    dependencies:
+      moment: 2.22.1
+    dev: false
+    resolution:
+      integrity: sha512-4d1l92plNNqnMkqI/7boWNVXJvwGL2WyByl1Hxp3h/ao3HZiAqaoQY+6KBkYdiN5QtNDpndq+58ozl8W4GVoNw==
+  /moment/2.22.1:
+    dev: false
+    resolution:
+      integrity: sha512-shJkRTSebXvsVqk56I+lkb2latjBs8I+pc2TzWc545y2iFnSjm7Wg0QMh+ZWcdSLQyGEau5jI8ocnmkyTgr9YQ==
   /mri/1.1.0:
     dev: false
     engines:
@@ -4423,9 +4430,10 @@ shrinkwrapMinorVersion: 5
 shrinkwrapVersion: 3
 specifiers:
   args: ^4.0.0
-  date-fns: ^1.29.0
   debug: ^3.1.0
   jest: ^22.4.3
+  moment: ^2.22.1
+  moment-timezone: ^0.5.16
   node-fetch: ^2.1.2
   snazzy: ^7.1.1
   standard: ^11.0.1
