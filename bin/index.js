@@ -10,11 +10,8 @@ args.example('monitoringkrakowpiosgovpl-dl -s telimeny', 'To fetch data from one
 args.example('monitoringkrakowpiosgovpl-dl -s telimeny -s nowahuta -s krasinskiego', 'To fetch data from multiple stations')
 const opts = args.parse(process.argv)
 
-downloadReadings((err, data) => {
-  if (!err) {
-    console.log(`${data.station.name}, ${data.param.label}, ${data.reading[1]}`)
-  }
-}, {
-  date: opts.date,
-  station: opts.station
-})
+const main = async () => {
+  const ratings = await Promise.all(await downloadReadings({ date: opts.date, station: opts.station }))
+}
+
+main()
