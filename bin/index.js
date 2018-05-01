@@ -26,6 +26,21 @@ const formatColor = (limit, value) => {
   }
   return chalk.green(value)
 }
+const emoji = (limit, value) => {
+  if (value > limit * 3) {
+    return '☢'
+  }
+  if (value > limit * 1.5) {
+    return '🚷'
+  }
+  if (value > limit) {
+    return '🛑'
+  }
+  if (value > limit * 0.85) {
+    return '⚠️'
+  }
+  return ''
+}
 const main = async () => {
   const opts = args.parse(process.argv)
   const ratings = await Promise.all(await downloadReadings({ date: opts.date, station: opts.station }))
@@ -38,7 +53,7 @@ const main = async () => {
       console.group()
       for (const r of c.data) {
         
-        console.log(`${formatColor(limit, r.value)}`)
+        console.log(`${formatColor(limit, r.value)} ${emoji(limit, r.value)}`)
       }
       console.groupEnd()
     }
