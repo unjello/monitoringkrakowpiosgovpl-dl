@@ -48,12 +48,12 @@ const main = async () => {
     console.log(`ℹ️  ${chalk.gray(s.station.name)}`)
     console.group()
     for (const c of s.data) {
-      console.log(`🔸  ${chalk.gray(c.label)}`)
+      console.log(`${chalk.gray(c.label)}`)
       const limit = getLimit(c.code)
       console.group()
       for (const r of c.data) {
         
-        console.log(`${formatColor(limit, r.value)} ${emoji(limit, r.value)}`)
+        console.log(`${formatColor(limit, (parseFloat(r.value)).toFixed(1))} ${emoji(limit, r.value)}`)
       }
       console.groupEnd()
     }
