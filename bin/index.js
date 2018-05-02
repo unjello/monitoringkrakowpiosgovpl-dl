@@ -53,7 +53,7 @@ const main = async () => {
       console.group()
       for (const r of c.data) {
         
-        console.log(`${formatColor(limit, (parseFloat(r.value)).toFixed(1))} ${emoji(limit, r.value)}`)
+        console.log(`${r.time} ${formatColor(limit, (parseFloat(r.value)).toFixed(1))} ${emoji(limit, r.value)}`)
       }
       console.groupEnd()
     }
