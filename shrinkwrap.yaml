@@ -5,6 +5,7 @@ dependencies:
   moment: 2.22.1
   moment-timezone: 0.5.16
   node-fetch: 2.1.2
+  table: 4.0.3
 devDependencies:
   jest: 22.4.3
   snazzy: 7.1.1
@@ -61,6 +62,15 @@ packages:
       ajv: ^5.0.0
     resolution:
       integrity: sha1-YXmX/F9gV2iUxDX5QNgZ4TW4B2I=
+  /ajv-keywords/3.2.0/ajv@6.4.0:
+    dependencies:
+      ajv: 6.4.0
+    dev: false
+    id: registry.npmjs.org/ajv-keywords/3.2.0
+    peerDependencies:
+      ajv: ^6.0.0
+    resolution:
+      integrity: sha1-6GuBnGAs+IIa1jdBNpjx3sAhhHo=
   /ajv/5.5.2:
     dependencies:
       co: 4.6.0
@@ -70,6 +80,15 @@ packages:
     dev: true
     resolution:
       integrity: sha1-c7Xuyj+rZT49P5Qis0GtQiBdyWU=
+  /ajv/6.4.0:
+    dependencies:
+      fast-deep-equal: 1.1.0
+      fast-json-stable-stringify: 2.0.0
+      json-schema-traverse: 0.3.1
+      uri-js: 3.0.2
+    dev: false
+    resolution:
+      integrity: sha1-06/3jpJ3VJdx2vAWTP9ISCt1T8Y=
   /align-text/0.1.4:
     dependencies:
       kind-of: 3.2.2
@@ -100,7 +119,6 @@ packages:
     resolution:
       integrity: sha1-w7M6te42DYbg5ijwRorn7yfWVN8=
   /ansi-regex/3.0.0:
-    dev: true
     engines:
       node: '>=4'
     resolution:
@@ -1382,11 +1400,9 @@ packages:
     resolution:
       integrity: sha1-4mifjzVvrWLMplo6kcXfX5VRaS8=
   /fast-deep-equal/1.1.0:
-    dev: true
     resolution:
       integrity: sha1-wFNHeBfIa1HaqFPIHgWbcz0CNhQ=
   /fast-json-stable-stringify/2.0.0:
-    dev: true
     resolution:
       integrity: sha1-1RQsDK7msRifh9OnYREGT4bIu/I=
   /fast-levenshtein/2.0.6:
@@ -2001,7 +2017,6 @@ packages:
     resolution:
       integrity: sha1-754xOG8DGn8NZDr4L95QxFfvAMs=
   /is-fullwidth-code-point/2.0.0:
-    dev: true
     engines:
       node: '>=4'
     resolution:
@@ -2560,7 +2575,6 @@ packages:
     resolution:
       integrity: sha512-mrqyZKfX5EhL7hvqcV6WG1yYjnjeuYDzDhhcAAUrq8Po85NBQBJP+ZDUT75qZQ98IkUoBqdkExkukOU7Ts2wrw==
   /json-schema-traverse/0.3.1:
-    dev: true
     resolution:
       integrity: sha1-NJptRMU6Ud6JtAgFxdXlm0F9M0A=
   /json-schema/0.2.3:
@@ -2716,6 +2730,10 @@ packages:
     dev: true
     resolution:
       integrity: sha1-7dFMgk4sycHgsKG0K7UhBRakJDg=
+  /lodash/4.17.10:
+    dev: false
+    resolution:
+      integrity: sha512-UejweD1pDoXu+AD825lWwp4ZGtSwgnpZxb3JDViD7StjQz+Nb/6l093lx4OQ0foGWNRoc19mWy7BzL+UAK2iVg==
   /lodash/4.17.5:
     dev: true
     resolution:
@@ -3356,7 +3374,6 @@ packages:
     resolution:
       integrity: sha1-wNWmOycYgArY4esPpSachN1BhF4=
   /punycode/2.1.0:
-    dev: true
     engines:
       node: '>=6'
     resolution:
@@ -3738,7 +3755,6 @@ packages:
   /slice-ansi/1.0.0:
     dependencies:
       is-fullwidth-code-point: 2.0.0
-    dev: true
     engines:
       node: '>=4'
     resolution:
@@ -3967,7 +3983,6 @@ packages:
     dependencies:
       is-fullwidth-code-point: 2.0.0
       strip-ansi: 4.0.0
-    dev: true
     engines:
       node: '>=4'
     resolution:
@@ -3993,7 +4008,6 @@ packages:
   /strip-ansi/4.0.0:
     dependencies:
       ansi-regex: 3.0.0
-    dev: true
     engines:
       node: '>=4'
     resolution:
@@ -4060,6 +4074,19 @@ packages:
     dev: true
     resolution:
       integrity: sha512-UUkEAPdSGxtRpiV9ozJ5cMTtYiqz7Ni1OGqLXRCynrvzdtR1p+cfOWe2RJLwvUG8hNanaSRjecIqwOjqeatDsA==
+  /table/4.0.3:
+    dependencies:
+      ajv: 6.4.0
+      ajv-keywords: /ajv-keywords/3.2.0/ajv@6.4.0
+      chalk: 2.4.1
+      lodash: 4.17.10
+      slice-ansi: 1.0.0
+      string-width: 2.1.1
+    dev: false
+    engines:
+      node: '>=4.0.0'
+    resolution:
+      integrity: sha512-S7rnFITmBH1EnyKcvxBh1LjYeQMmnZtCXSEbHcH6S0NoKit24ZuFO/T1vDcLdYsLQkM188PVVhQmzKIuThNkKg==
   /test-exclude/4.2.1:
     dependencies:
       arrify: 1.0.1
@@ -4216,6 +4243,12 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-g3aHP30jNRef+x5vw6jtDfyKtVk=
+  /uri-js/3.0.2:
+    dependencies:
+      punycode: 2.1.0
+    dev: false
+    resolution:
+      integrity: sha1-+QuFhQf4HepNz7s8TD2/orVX+qo=
   /urix/0.1.0:
     dev: true
     resolution:
@@ -4441,3 +4474,4 @@ specifiers:
   node-fetch: ^2.1.2
   snazzy: ^7.1.1
   standard: ^11.0.1
+  table: ^4.0.3

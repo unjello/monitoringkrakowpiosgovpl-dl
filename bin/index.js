@@ -2,13 +2,16 @@ const args = require('args')
 const downloadReadings = require('../lib')
 const Options = require('../lib/options')
 const chalk = require('chalk')
+const { table, getBorderCharacters } = require('table')
 
 args.option(['d', 'date'], 'Read air quality data for specific date', Options.default.date)
 args.option(['s', 'station'], 'Read air quality data for specific station(s)', Options.default.station)
+args.option(['t', 'table'], 'Format data as table', false)
 args.example('monitoringkrakowpiosgovpl-dl', 'To fetch data from today')
 args.example('monitoringkrakowpiosgovpl-dl -d "2018-01-22"', 'To fetch data from January 22nd')
 args.example('monitoringkrakowpiosgovpl-dl -s telimeny', 'To fetch data from one station')
 args.example('monitoringkrakowpiosgovpl-dl -s telimeny -s nowahuta -s krasinskiego', 'To fetch data from multiple stations')
+args.example('monitoringkrakowpiosgovpl-dl -s telimeny -s nowahuta -t', 'Prints out tabbular data')
 const getLimit = code => {
   if (code === 'PM10') return 50;
   if (code === 'PM2.5') return 25;
@@ -44,20 +47,53 @@ const emoji = (limit, value) => {
 const main = async () => {
   const opts = args.parse(process.argv)
   const ratings = await Promise.all(await downloadReadings({ date: opts.date, station: opts.station }))
-  for (const s of ratings) {
-    console.log(`ℹ️  ${chalk.gray(s.station.name)}`)
-    console.group()
-    for (const c of s.data) {
-      console.log(`${chalk.gray(c.label)}`)
-      const limit = getLimit(c.code)
+
+  if (opts.t) {
+    let data = { PM10: [], 'PM2.5': [] }
+    for (const s of ratings) {
+      for (const c of s.data) {
+        if (!data[c.code][0]) {
+          data[c.code][0] = []
+        }
+        data[c.code][0].push(s.station.name)
+        const limit = getLimit(c.code)
+        for (i = 0, j = 1; i < c.data.length; i++, j++) {
+          if (!data[c.code][j]) {
+            data[c.code][j] = []
+          }
+          data[c.code][j].push(`${formatColor(limit, (parseFloat(c.data[i].value)).toFixed(1))}`)
+        }
+      }
+    }
+    const lastHoursReadingsSize = data['PM10'][data['PM10'].length-1].length
+    const t_2ReadingsSize = data['PM10'][data['PM10'].length-2].length
+    if (lastHoursReadingsSize < t_2ReadingsSize) {
+      for (i = 0; i < t_2ReadingsSize - lastHoursReadingsSize; i++) {
+        data['PM10'][data['PM10'].length-1].push(chalk.gray('-'))
+      }
+    }
+    options = {
+      drawHorizontalLine: (index, size) => index === 0 || index === 1 || index === size,
+      border: getBorderCharacters('norc')
+    }
+    //console.log(table(data['PM2.5'], options))
+    console.log(table(data['PM10'], options))
+  } else {
+    for (const s of ratings) {
+      console.log(`ℹ️  ${chalk.gray(s.station.name)}`)
       console.group()
-      for (const r of c.data) {
-        
-        console.log(`${r.time} ${formatColor(limit, (parseFloat(r.value)).toFixed(1))} ${emoji(limit, r.value)}`)
+      for (const c of s.data) {
+        console.log(`${chalk.gray(c.label)}`)
+        const limit = getLimit(c.code)
+        console.group()
+        for (const r of c.data) {
+          
+          console.log(`${r.time} ${formatColor(limit, (parseFloat(r.value)).toFixed(1))} ${emoji(limit, r.value)}`)
+        }
+        console.groupEnd()
       }
       console.groupEnd()
     }
-    console.groupEnd()
   }
 }
 
