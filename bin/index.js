@@ -3,6 +3,7 @@ const downloadReadings = require('../lib')
 const Options = require('../lib/options')
 const chalk = require('chalk')
 const { table, getBorderCharacters } = require('table')
+const { padColumns } = require('../lib/util')
 
 args.option(['d', 'date'], 'Read air quality data for specific date', Options.default.date)
 args.option(['s', 'station'], 'Read air quality data for specific station(s)', Options.default.station)
@@ -65,13 +66,9 @@ const main = async () => {
         }
       }
     }
-    const lastHoursReadingsSize = data['PM10'][data['PM10'].length-1].length
-    const t_2ReadingsSize = data['PM10'][data['PM10'].length-2].length
-    if (lastHoursReadingsSize < t_2ReadingsSize) {
-      for (i = 0; i < t_2ReadingsSize - lastHoursReadingsSize; i++) {
-        data['PM10'][data['PM10'].length-1].push(chalk.gray('-'))
-      }
-    }
+
+    padColumns(data['PM10'], chalk.gray('-'))
+
     options = {
       drawHorizontalLine: (index, size) => index === 0 || index === 1 || index === size,
       border: getBorderCharacters('norc')
