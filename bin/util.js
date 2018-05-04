@@ -13,13 +13,13 @@ const padColumns = (table, pad) => {
 }
 
 const formatColor = (limit, value) => {
-  if (value > limit) {
+  if (value > limit * 1.2) {
     return chalk.red.bold(value)
   }
-  if (value > limit * 0.85) {
+  if (value > limit) {
     return chalk.red(value)
   }
-  if (value > limit * 0.5) {
+  if (value > limit * 0.75) {
     return chalk.yellow(value)
   }
   return chalk.green(value)

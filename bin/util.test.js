@@ -1,6 +1,7 @@
 'use strict'
 
-const { padColumns } = require('./util')
+const { padColumns, formatColor } = require('./util')
+const chalk = require('chalk')
 
 describe('padColumns', () => {
   test('leaves data table with correct number of columns untouched', () => {
@@ -54,5 +55,28 @@ describe('padColumns', () => {
     for (const row of data) {
       expect(row).toHaveLength(6)
     }
+  })
+})
+
+describe('formatColor', () => {
+  test('creates red-bold for values over 120% of limit', () => {
+    [121, 150, 200].forEach(x => {
+      expect(formatColor(100, x)).toEqual(chalk.red.bold(x))
+    })
+  })
+  test('creates red for values between 100% and 120% of limit', () => {
+    [101, 120].forEach(x => {
+      expect(formatColor(100, x)).toEqual(chalk.red(x))
+    })
+  })
+  test('creates yellow for values between 75% and 100% of limit', () => {
+    [76, 80, 100].forEach(x => {
+      expect(formatColor(100, x)).toEqual(chalk.yellow(x))
+    })
+  })
+  test('creates green for values below 75% of limit', () => {
+    [0, 1, 40, 75].forEach(x => {
+      expect(formatColor(100, x)).toEqual(chalk.green(x))
+    })
   })
 })
