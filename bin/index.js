@@ -3,7 +3,7 @@ const downloadReadings = require('../lib')
 const Options = require('../lib/options')
 const chalk = require('chalk')
 const { table, getBorderCharacters } = require('table')
-const { padColumns } = require('../lib/util')
+const { padColumns, formatColor, getEmoji } = require('./util')
 
 args.option(['d', 'date'], 'Read air quality data for specific date', Options.default.date)
 args.option(['s', 'station'], 'Read air quality data for specific station(s)', Options.default.station)
@@ -18,33 +18,7 @@ const getLimit = code => {
   if (code === 'PM2.5') return 25;
   throw new Error('unknown parameter')
 }
-const formatColor = (limit, value) => {
-  if (value > limit) {
-    return chalk.red.bold(value)
-  }
-  if (value > limit * 0.85) {
-    return chalk.red(value)
-  }
-  if (value > limit * 0.5) {
-    return chalk.yellow(value)
-  }
-  return chalk.green(value)
-}
-const emoji = (limit, value) => {
-  if (value > limit * 3) {
-    return '☢'
-  }
-  if (value > limit * 1.5) {
-    return '🚷'
-  }
-  if (value > limit) {
-    return '🛑'
-  }
-  if (value > limit * 0.85) {
-    return '⚠️'
-  }
-  return ''
-}
+
 const main = async () => {
   const opts = args.parse(process.argv)
   const ratings = await Promise.all(await downloadReadings({ date: opts.date, station: opts.station }))
@@ -85,7 +59,7 @@ const main = async () => {
         console.group()
         for (const r of c.data) {
           
-          console.log(`${r.time} ${formatColor(limit, (parseFloat(r.value)).toFixed(1))} ${emoji(limit, r.value)}`)
+          console.log(`${r.time} ${formatColor(limit, (parseFloat(r.value)).toFixed(1))} ${getEmoji(limit, r.value)}`)
         }
         console.groupEnd()
       }
