@@ -51,12 +51,10 @@ const main = async () => {
     console.log(table(data['PM10'], options))
   } else {
     for (const s of ratings) {
-      console.log(`ℹ️  ${chalk.gray(s.station.name)}`)
-      console.group()
+      console.group(`ℹ️  ${chalk.gray(s.station.name)}`)
       for (const c of s.data) {
-        console.log(`${chalk.gray(c.label)}`)
         const limit = getLimit(c.code)
-        console.group()
+        console.group(`${chalk.gray(c.label)}`)
         for (const r of c.data) {
           
           console.log(`${r.time} ${formatColor(limit, (parseFloat(r.value)).toFixed(1))} ${getEmoji(limit, r.value)}`)
