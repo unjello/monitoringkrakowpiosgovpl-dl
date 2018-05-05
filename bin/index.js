@@ -46,8 +46,10 @@ const main = async () => {
       }
     }
   }
-  padColumns(data.byCode['PM10'], chalk.gray('-'))
-  padColumns(data.byCode['PM2.5'], chalk.gray('-'))
+  for (const code of Object.keys(data.byCode)) {
+    padColumns(data.byCode[code], chalk.gray('-'))
+  }
+
   if (opts.t) {
     options = {
       drawHorizontalLine: (index, size) => index === 0 || index === 1 || index === size,
