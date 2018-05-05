@@ -47,14 +47,13 @@ const main = async () => {
     }
   }
   padColumns(data.byCode['PM10'], chalk.gray('-'))
-
+  padColumns(data.byCode['PM2.5'], chalk.gray('-'))
   if (opts.t) {
-
     options = {
       drawHorizontalLine: (index, size) => index === 0 || index === 1 || index === size,
       border: getBorderCharacters('norc')
     }
-    //console.log(table(data['PM2.5'], options))
+    console.log(table(data.byCode['PM2.5'], options))
     console.log(table(data.byCode['PM10'], options))
   } else {
     for (const s of ratings) {
