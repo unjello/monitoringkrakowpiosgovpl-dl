@@ -23,32 +23,39 @@ const main = async () => {
   const opts = args.parse(process.argv)
   const ratings = await Promise.all(await downloadReadings({ date: opts.date, station: opts.station }))
 
-  if (opts.t) {
-    let data = { PM10: [], 'PM2.5': [] }
-    for (const s of ratings) {
-      for (const c of s.data) {
-        if (!data[c.code][0]) {
-          data[c.code][0] = []
+  let data = {
+    byCode: {},
+    byStation: {}
+  }
+
+  for (const s of ratings) {
+    for (const c of s.data) {
+      if (!data.byCode[c.code]) {
+        data.byCode[c.code] = []
+      }
+      if (!data.byCode[c.code][0]) {
+        data.byCode[c.code][0] = []
+      }
+      data.byCode[c.code][0].push(s.station.name)
+      const limit = getLimit(c.code)
+      for (i = 0, j = 1; i < c.data.length; i++, j++) {
+        if (!data.byCode[c.code][j]) {
+          data.byCode[c.code][j] = []
         }
-        data[c.code][0].push(s.station.name)
-        const limit = getLimit(c.code)
-        for (i = 0, j = 1; i < c.data.length; i++, j++) {
-          if (!data[c.code][j]) {
-            data[c.code][j] = []
-          }
-          data[c.code][j].push(`${formatColor(limit, (parseFloat(c.data[i].value)).toFixed(1))}`)
-        }
+        data.byCode[c.code][j].push(`${formatColor(limit, (parseFloat(c.data[i].value)).toFixed(1))}`)
       }
     }
+  }
+  padColumns(data.byCode['PM10'], chalk.gray('-'))
 
-    padColumns(data['PM10'], chalk.gray('-'))
+  if (opts.t) {
 
     options = {
       drawHorizontalLine: (index, size) => index === 0 || index === 1 || index === size,
       border: getBorderCharacters('norc')
     }
     //console.log(table(data['PM2.5'], options))
-    console.log(table(data['PM10'], options))
+    console.log(table(data.byCode['PM10'], options))
   } else {
     for (const s of ratings) {
       console.group(`ℹ️  ${chalk.gray(s.station.name)}`)
