@@ -30,8 +30,12 @@ const main = async () => {
       drawHorizontalLine: (index, size) => index === 0 || index === 1 || index === size,
       border: getBorderCharacters('norc')
     }
-    console.log(table(data.byCode['PM2.5'], options))
-    console.log(table(data.byCode['PM10'], options))
+
+    Array.from(['PM2.5', 'PM10']).forEach(c => {
+      console.group(chalk.gray(c))
+      console.log(table(data.byCode[c], options))
+      console.groupEnd()  
+    })
   } else {
     for (const s of Object.keys(data.byStation)) {
       console.group(`ℹ️  ${chalk.gray(s)}`)
