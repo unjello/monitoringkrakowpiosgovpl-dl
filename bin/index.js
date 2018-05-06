@@ -19,7 +19,7 @@ args.example('monitoringkrakowpiosgovpl-dl -s telimeny -s nowahuta -t', 'Prints 
 const main = async () => {
   const opts = args.parse(process.argv)
   const ratings = await Promise.all(await downloadReadings({ date: opts.date, station: opts.station }))
-  const data = structureData(ratings, (limit, value) => `${formatColor(limit, (parseFloat(value)).toFixed(1))}`)
+  const data = structureData(ratings, (limit, value) => `${formatColor(limit, (parseFloat(value)).toFixed(1))}${getEmoji(limit, value)}`)
 
   if (opts.t) {
     for (const code of Object.keys(data.byCode)) {
@@ -33,14 +33,12 @@ const main = async () => {
     console.log(table(data.byCode['PM2.5'], options))
     console.log(table(data.byCode['PM10'], options))
   } else {
-    for (const s of ratings) {
-      console.group(`ℹ️  ${chalk.gray(s.station.name)}`)
-      for (const c of s.data) {
-        const limit = getLimit(c.code)
-        console.group(`${chalk.gray(c.label)}`)
-        for (const r of c.data) {
-          
-          console.log(`${r.time} ${formatColor(limit, (parseFloat(r.value)).toFixed(1))} ${getEmoji(limit, r.value)}`)
+    for (const s of Object.keys(data.byStation)) {
+      console.group(`ℹ️  ${chalk.gray(s)}`)
+      for (const c of Object.keys(data.byStation[s])) {
+        console.group(`${chalk.gray(c)}`)
+        for (const r of data.byStation[s][c]) {
+          console.log(r)
         }
         console.groupEnd()
       }
