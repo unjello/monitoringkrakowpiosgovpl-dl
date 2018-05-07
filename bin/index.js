@@ -1,3 +1,5 @@
+'use strict'
+
 const args = require('args')
 const downloadReadings = require('../lib')
 const structureData = require('../lib/structureData')
