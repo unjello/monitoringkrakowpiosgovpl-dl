@@ -28,7 +28,7 @@ const main = async () => {
       padColumns(data.byCode[code], chalk.gray('-'))
     }
   
-    options = {
+    const options = {
       drawHorizontalLine: (index, size) => index === 0 || index === 1 || index === size,
       border: getBorderCharacters('norc')
     }
