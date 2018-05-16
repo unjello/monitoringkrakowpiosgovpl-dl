@@ -24,24 +24,8 @@ const formatColor = (limit, value) => {
   }
   return chalk.green(value)
 }
-const getEmoji = (limit, value) => {
-  if (value > limit * 3) {
-    return '☢'
-  }
-  if (value > limit * 1.5) {
-    return '🚷'
-  }
-  if (value > limit) {
-    return '🛑'
-  }
-  if (value > limit * 0.85) {
-    return '⚠️'
-  }
-  return ''
-}
 
 module.exports = {
   padColumns,
-  formatColor,
-  getEmoji
+  formatColor
 }

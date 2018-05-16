@@ -21,7 +21,7 @@ args.example('monitoringkrakowpiosgovpl-dl -s telimeny -s nowahuta -t', 'Prints 
 const main = async () => {
   const opts = args.parse(process.argv)
   const ratings = await Promise.all(await downloadReadings({ date: opts.date, station: opts.station }))
-  const data = structureData(ratings, (limit, value) => `${formatColor(limit, (parseFloat(value)).toFixed(1))}${getEmoji(limit, value)}`)
+  const data = structureData(ratings, (limit, value) => `${formatColor(limit, (parseFloat(value)).toFixed(1))}`)
 
   if (opts.t) {
     for (const code of Object.keys(data.byCode)) {
